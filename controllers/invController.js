@@ -8,12 +8,17 @@ const invCont = {};
  * ************************** */
 invCont.buildByClassificationId = async function (req, res, next) {
   const classification_id = req.params.classificationId;
+
+  if (isNaN(classification_id)) {
+    req.flash('notice', 'Invalid classification ID.');
+    return res.redirect('/');
+  }
+
   const data = await invModel.getInventoryByClassificationId(classification_id);
 
   if (!data || data.length === 0) {
-    const err = new Error('No vehicles found for this classification.');
-    err.status = 404;
-    return next(err);
+    req.flash('notice', 'No vehicles found for this classification.');
+    return res.redirect('/');
   }
 
   const grid = await utilities.buildClassificationGrid(data);

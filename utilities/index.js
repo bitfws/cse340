@@ -4,9 +4,8 @@ const Util = {};
 /* ************************
  * Constructs the nav HTML unordered list
  ************************** */
-Util.getNav = async function (req, res, next) {
+Util.getNav = async function () {
   let data = await invModel.getClassifications();
-  // console.log(data.rows);
   let list = '<ul>';
   list += '<li><a href="/" title="Home page">Home</a></li>';
   data.rows.forEach((row) => {
@@ -29,7 +28,7 @@ Util.getNav = async function (req, res, next) {
  * Build the classification view HTML
  * ************************************ */
 Util.buildClassificationGrid = async function (data) {
-  let grid;
+  let grid = '';
   if (data.length > 0) {
     grid = '<ul id="inv-display">';
     data.forEach((vehicle) => {
@@ -41,7 +40,7 @@ Util.buildClassificationGrid = async function (data) {
         vehicle.inv_make +
         ' ' +
         vehicle.inv_model +
-        'details"><img src="' +
+        ' details"><img src="' +
         vehicle.inv_image +
         '" alt="Image of ' +
         vehicle.inv_make +
@@ -73,7 +72,7 @@ Util.buildClassificationGrid = async function (data) {
     });
     grid += '</ul>';
   } else {
-    grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>';
+    grid = '<p class="notice">Sorry, no matching vehicles could be found.</p>';
   }
   return grid;
 };
@@ -106,6 +105,24 @@ Util.buildVehicleDetail = async function (vehicle) {
       </div>
     </div>
   `;
+};
+
+/* ******************************
+ * Build a dynamic classification select list for inventory form
+ ******************************* */
+Util.buildClassificationList = async function (classification_id = null) {
+  let data = await invModel.getClassifications();
+  let list = '<select name="classification_id" required>';
+  list += "<option value=''>Choose a Classification</option>";
+  data.rows.forEach((row) => {
+    list += `<option value="${row.classification_id}"`;
+    if (classification_id == row.classification_id) {
+      list += ' selected';
+    }
+    list += `>${row.classification_name}</option>`;
+  });
+  list += '</select>';
+  return list;
 };
 
 module.exports = Util;

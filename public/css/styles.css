@@ -22,6 +22,11 @@
   border: none;
 }
 
+hr {
+  margin: 10px;
+  border-bottom: 1px solid #e7e7e7;
+}
+
 #container {
   padding: 10px;
 }
@@ -262,6 +267,7 @@ footer {
   text-align: center;
   color: #777;
   margin: 20px 0;
+  z-index: 10;
 }
 
 /* ---------- Details Page ---------- */
@@ -307,6 +313,306 @@ footer {
 
 .vehicle-detail .vehicle-info strong {
   color: var(--primary-color);
+}
+/* ---------- Account Page ---------- */
+
+/* ---------- Login Form ---------- */
+#loginForm {
+  min-height: 350px;
+  max-width: 300px;
+  margin: 1rem auto;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 3px 8px #0000004d;
+  padding: 20px;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--bg-color);
+}
+
+#loginForm * {
+  text-align: center;
+}
+
+#loginForm label {
+  margin: 10px 0;
+  font-size: large;
+}
+
+#loginForm input {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-bottom: 1px solid #0000003d;
+  box-shadow: 0px 3px 5px #0000004d;
+  border-radius: 10px;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+#loginForm input::placeholder {
+  color: #86b8e06e;
+}
+
+#loginForm input:focus {
+  outline: none;
+  transform: scale(1.05);
+  transition: ease-in-out 300ms;
+}
+
+#loginForm button {
+  margin-top: 1.5rem;
+  padding: 0.7rem;
+  font-size: 1rem;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  min-width: 100px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* ---------- Register Form ---------- */
+#registerForm {
+  min-height: 400px;
+  max-width: 300px;
+  margin: 1rem auto;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 3px 8px #0000004d;
+  padding: 20px;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--bg-color);
+}
+
+#registerForm * {
+  text-align: center;
+}
+
+#registerForm label {
+  margin: 10px 0;
+  font-size: large;
+}
+
+#registerForm input {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-bottom: 1px solid #0000003d;
+  box-shadow: 0px 3px 5px #0000004d;
+  border-radius: 10px;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+#registerForm input::placeholder {
+  color: #86b8e06e;
+}
+
+#registerForm input:focus {
+  outline: none;
+  transform: scale(1.05);
+  transition: ease-in-out 300ms;
+}
+
+#registerForm button {
+  margin-top: 1.5rem;
+  padding: 0.7rem;
+  font-size: 1rem;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  min-width: 100px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* ---------- Flash Message ---------- */
+.flash-message {
+  background-color: #ffeeba;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #f0ad4e;
+  z-index: 10;
+}
+
+/* ---------- Links ---------- */
+#loginForm .register-link,
+#registerForm .login-link {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+/* ---------- Password Rules ---------- */
+.password-rules {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+/* ---------- Validation States ---------- */
+/* input:required:invalid,
+input:focus:invalid {
+  border: 2px solid #c0392b;
+}
+
+input:required:valid {
+  border: 2px solid #27ae60;
+} */
+
+/* ----------  Password Toggle Button ---------- */
+#password-btn {
+  border: 2px solid #000;
+  border-radius: 5px;
+  padding: 2px;
+  margin-top: 1em;
+  font-size: small;
+  width: 7em;
+  text-align: center;
+}
+/* ---------- Inventory Management Forms ---------- */
+
+/* ---------- Add Classification Form ---------- */
+#addClassificationForm {
+  min-height: 250px;
+  max-width: 400px;
+  margin: 1rem auto;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 3px 8px #0000004d;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: var(--bg-color);
+}
+
+#addClassificationForm label {
+  margin: 10px 0;
+  font-size: large;
+}
+
+#addClassificationForm input[type='text'] {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-bottom: 1px solid #0000003d;
+  box-shadow: 0px 3px 5px #0000004d;
+  border-radius: 10px;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+#addClassificationForm input::placeholder {
+  color: #86b8e06e;
+}
+
+#addClassificationForm input:focus {
+  outline: none;
+  transform: scale(1.02);
+  transition: ease-in-out 300ms;
+}
+
+#addClassificationForm button {
+  margin-top: 1.5rem;
+  padding: 0.7rem;
+  font-size: 1rem;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  min-width: 100px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* ---------- Add Inventory Form ---------- */
+#addInventoryForm {
+  min-height: 500px;
+  max-width: 500px;
+  margin: 1rem auto;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 3px 8px #0000004d;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: var(--bg-color);
+}
+
+#addInventoryForm label {
+  margin: 10px 0;
+  font-size: large;
+}
+
+#addInventoryForm input,
+#addInventoryForm select,
+#addInventoryForm textarea {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-bottom: 1px solid #0000003d;
+  box-shadow: 0px 3px 5px #0000004d;
+  border-radius: 10px;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+#addInventoryForm input::placeholder,
+#addInventoryForm textarea::placeholder {
+  color: #86b8e06e;
+}
+
+#addInventoryForm input:focus,
+#addInventoryForm select:focus,
+#addInventoryForm textarea:focus {
+  outline: none;
+  transform: scale(1.02);
+  transition: ease-in-out 300ms;
+}
+
+#addInventoryForm button {
+  margin-top: 1.5rem;
+  padding: 0.7rem;
+  font-size: 1rem;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  min-width: 120px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* ---------- Flash Messages for Inventory ---------- */
+#addClassificationForm .flash-message,
+#addInventoryForm .flash-message {
+  background-color: #ffeeba;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #f0ad4e;
+}
+
+/* ---------- Validation Feedback ---------- */
+#addClassificationForm input:required:invalid,
+#addInventoryForm input:required:invalid,
+#addInventoryForm select:required:invalid,
+#addInventoryForm textarea:required:invalid {
+  background-image: url(/images/invalid.png);
+  background-position: right top;
+  background-repeat: no-repeat;
+  border: 2px solid #c0392b;
+}
+
+#addClassificationForm input:required:valid,
+#addInventoryForm input:required:valid,
+#addInventoryForm select:required:valid,
+#addInventoryForm textarea:required:valid {
+  background-image: url(/images/valid.png);
+  background-position: right top;
+  background-repeat: no-repeat;
+  border: 2px solid #27ae60;
+}
+
+/* ---------- Sticky Inputs Support ---------- */
+#addInventoryForm input.sticky,
+#addInventoryForm select.sticky,
+#addInventoryForm textarea.sticky {
+  color: var(--secondary-color);
 }
 
 /* ---------- MEDIA QUERIES ---------- */

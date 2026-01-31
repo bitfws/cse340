@@ -18,7 +18,7 @@ router.get(
  *****************/
 router.post(
   '/register',
-  regValidate.registationRules(),
+  regValidate.registrationRules(),
   regValidate.checkRegData,
   utilities.handleErrors(accountController.registerAccount),
 );

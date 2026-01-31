@@ -7,7 +7,7 @@ const validate = {};
 /* **********************************
  *  Registration Data Validation Rules
  ********************************* */
-validate.registationRules = () => {
+validate.registrationRules = () => {
   return [
     // First name
     body('account_firstname')

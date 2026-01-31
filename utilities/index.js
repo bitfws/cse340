@@ -4,7 +4,7 @@ const Util = {};
 /* ************************
  * Constructs the nav HTML unordered list
  ************************** */
-Util.getNav = async function () {
+Util.getNav = async function (req, res, next) {
   let data = await invModel.getClassifications();
   let list = '<ul>';
   list += '<li><a href="/" title="Home page">Home</a></li>';
@@ -28,7 +28,7 @@ Util.getNav = async function () {
  * Build the classification view HTML
  * ************************************ */
 Util.buildClassificationGrid = async function (data) {
-  let grid = '';
+  let grid;
   if (data.length > 0) {
     grid = '<ul id="inv-display">';
     data.forEach((vehicle) => {
@@ -40,7 +40,7 @@ Util.buildClassificationGrid = async function (data) {
         vehicle.inv_make +
         ' ' +
         vehicle.inv_model +
-        ' details"><img src="' +
+        'details"><img src="' +
         vehicle.inv_image +
         '" alt="Image of ' +
         vehicle.inv_make +

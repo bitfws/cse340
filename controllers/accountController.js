@@ -14,7 +14,7 @@ async function buildLogin(req, res, next) {
     nav,
     notice: req.flash('notice'),
     errors: null,
-    account_email: '', // Sticky email input
+    account_email: '',
   });
 }
 
@@ -46,8 +46,6 @@ async function registerAccount(req, res) {
     account_password,
   } = req.body;
 
-  // Server-side validation check already ran in middleware
-  // Hash the password before storing
   let hashedPassword;
   try {
     hashedPassword = await bcrypt.hash(account_password, 10);
@@ -67,7 +65,6 @@ async function registerAccount(req, res) {
     });
   }
 
-  // Register account
   const regResult = await accountModel.registerAccount(
     account_firstname,
     account_lastname,
@@ -113,6 +110,7 @@ async function accountLogin(req, res) {
     return res.status(400).render('account/login', {
       title: 'Login',
       nav,
+      notice: req.flash('notice'),
       errors: null,
       account_email,
     });
@@ -120,11 +118,11 @@ async function accountLogin(req, res) {
 
   try {
     if (await bcrypt.compare(account_password, accountData.account_password)) {
-      delete accountData.account_password; // no enviar la contraseña al cliente
+      delete accountData.account_password;
       const accessToken = jwt.sign(
         accountData,
         process.env.ACCESS_TOKEN_SECRET,
-        { expiresIn: 3600 * 1000 },
+        { expiresIn: 3600 },
       );
 
       if (process.env.NODE_ENV === 'development') {
@@ -137,12 +135,13 @@ async function accountLogin(req, res) {
         });
       }
 
-      return res.redirect('/account/');
+      return res.redirect('/inv/');
     } else {
       req.flash('notice', 'Please check your credentials and try again.');
       return res.status(400).render('account/login', {
         title: 'Login',
         nav,
+        notice: req.flash('notice'),
         errors: null,
         account_email,
       });

@@ -416,7 +416,7 @@ invCont.deleteInventory = async function (req, res, next) {
   }
 
   try {
-    const result = await invModel.deleteInventoryById(inv_id);
+    const result = await invModel.deleteInventoryItem(inv_id);
     if (result) {
       req.flash('notice', 'Vehicle deleted successfully.');
       res.redirect('/inv');
@@ -425,7 +425,6 @@ invCont.deleteInventory = async function (req, res, next) {
       res.redirect(`/inv/delete/${inv_id}`);
     }
   } catch (error) {
-    console.error('deleteInventory error:', error);
     req.flash('notice', 'Error deleting vehicle.');
     res.redirect(`/inv/delete/${inv_id}`);
   }

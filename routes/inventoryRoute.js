@@ -1,16 +1,18 @@
 const express = require('express');
 const router = express.Router();
 const invController = require('../controllers/invController');
-const accountController = require('../controllers/accountController');
 const utilities = require('../utilities');
 const validate = require('../utilities/inventory-validation');
 
-/* ***************
+/* *****************************
  * Inventory Routes
- *****************/
+ ***************************** */
 
 // Inventory by classification
-router.get('/type/:classificationId', invController.buildByClassificationId);
+router.get(
+  '/type/:classificationId',
+  utilities.handleErrors(invController.buildByClassificationId),
+);
 
 // Inventory detail
 router.get(
@@ -18,18 +20,16 @@ router.get(
   utilities.handleErrors(invController.buildByInventoryId),
 );
 
-// Trigger 500 error
+// Trigger intentional 500 error
 router.get('/error/500', utilities.handleErrors(invController.throwError));
-
-// Login view
-router.get('/login', utilities.handleErrors(accountController.buildLogin));
 
 // Inventory management view
 router.get('/', utilities.handleErrors(invController.buildManagement));
 
-/* ***************
+/* *****************************
  * Add Classification
- *****************/
+ ***************************** */
+
 // Show add classification form
 router.get(
   '/add-classification',
@@ -44,9 +44,10 @@ router.post(
   utilities.handleErrors(invController.addClassification),
 );
 
-/* ***************
+/* *****************************
  * Add Inventory
- *****************/
+ ***************************** */
+
 // Show add inventory form
 router.get(
   '/add-inventory',
@@ -60,5 +61,42 @@ router.post(
   validate.checkInventoryData,
   utilities.handleErrors(invController.addInventory),
 );
+
+// Get inventory JSON by classification
+router.get(
+  '/getInventory/:classification_id',
+  utilities.handleErrors(invController.getInventoryJSON),
+);
+
+/* *****************************
+ * Edit Inventory
+ ***************************** */
+
+// Show edit inventory form
+router.get(
+  '/edit/:inv_id',
+  utilities.handleErrors(invController.editInventoryView),
+);
+
+// Update inventory data
+router.post(
+  '/update',
+  validate.inventoryRules(),
+  validate.checkUpdateData,
+  utilities.handleErrors(invController.updateInventory),
+);
+
+/* *****************************
+ * Delete Inventory
+ ***************************** */
+
+// Show delete confirmation page
+router.get(
+  '/delete/:inv_id',
+  utilities.handleErrors(invController.buildDeleteInventory),
+);
+
+// Process delete inventory
+router.post('/delete', utilities.handleErrors(invController.deleteInventory));
 
 module.exports = router;

@@ -1,0 +1,6 @@
+<h1>Delete <%= vehicle.inv_make %> <%= vehicle.inv_model %>?</h1>
+<form method="post" action="/inv/delete">
+  <input type="hidden" name="inv_id" value="<%= vehicle.inv_id %>" />
+  <button type="submit">Confirm Delete</button>
+  <a href="/inv">Cancel</a>
+</form>

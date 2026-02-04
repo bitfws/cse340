@@ -17,6 +17,8 @@ const accountRoute = require('./routes/AccountRoute');
 const utilities = require('./utilities');
 const session = require('express-session');
 const pool = require('./database');
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
 
 /* ***********************
  * View Engine and Templates
@@ -37,6 +39,7 @@ app.use(
 );
 
 // Express Messages Middleware
+app.use(utilities.checkJWTToken);
 app.use(require('connect-flash')());
 app.use(function (req, res, next) {
   res.locals.messages = require('express-messages')(req, res);

@@ -20,7 +20,11 @@ router.get(
 
 router.get('/error/500', utilities.handleErrors(invController.throwError));
 
-router.get('/', utilities.handleErrors(invController.buildManagementView));
+router.get(
+  '/',
+  utilities.checkEmployeeOrAdmin,
+  utilities.handleErrors(invController.buildManagementView),
+);
 
 /* *****************************
  * Add Classification
@@ -28,11 +32,13 @@ router.get('/', utilities.handleErrors(invController.buildManagementView));
 
 router.get(
   '/add-classification',
+  utilities.checkEmployeeOrAdmin,
   utilities.handleErrors(invController.buildAddClassification),
 );
 
 router.post(
   '/add-classification',
+  utilities.checkEmployeeOrAdmin,
   validate.classificationRules(),
   validate.checkClassificationData,
   utilities.handleErrors(invController.addClassification),
@@ -43,8 +49,9 @@ router.post(
  ***************************** */
 
 router.get(
-  '/add-inventory',
-  utilities.handleErrors(invController.buildAddInventory),
+  '/add-classification',
+  utilities.checkEmployeeOrAdmin,
+  utilities.handleErrors(invController.buildAddClassification),
 );
 
 router.post(

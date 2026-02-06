@@ -18,6 +18,7 @@ const utilities = require('./utilities');
 const session = require('express-session');
 const pool = require('./database');
 const cookieParser = require('cookie-parser');
+
 app.use(cookieParser());
 
 /* ***********************
@@ -38,14 +39,30 @@ app.use(
   }),
 );
 
-// Express Messages Middleware
+/* ***********************
+ * JWT + Globals Middleware  ✅ FIX CLAVE
+ *************************/
 app.use(utilities.checkJWTToken);
+
+app.use((req, res, next) => {
+  // Garantiza que SIEMPRE existan para EJS
+  res.locals.loggedin = res.locals.loggedin || 0;
+  res.locals.accountData = res.locals.accountData || null;
+  next();
+});
+
+/* ***********************
+ * Flash Messages Middleware
+ *************************/
 app.use(require('connect-flash')());
 app.use(function (req, res, next) {
   res.locals.messages = require('express-messages')(req, res);
   next();
 });
 
+/* ***********************
+ * View Engine Setup
+ *************************/
 app.set('view engine', 'ejs');
 app.use(expressLayouts);
 app.set('layout', './layouts/layout');
@@ -68,7 +85,6 @@ app.get('/', utilities.handleErrors(baseController.buildHome));
 
 /* ***********************
  * 404 Middleware
- * Must be last route
  *************************/
 app.use(async (req, res, next) => {
   next({ status: 404, message: 'Sorry, we appear to have lost that page.' });
@@ -76,7 +92,6 @@ app.use(async (req, res, next) => {
 
 /* ***********************
  * Express Error Handler
- * Place after all other middleware
  *************************/
 app.use(async (err, req, res, next) => {
   let nav = await utilities.getNav();
@@ -100,7 +115,7 @@ const port = process.env.PORT;
 const host = process.env.HOST;
 
 /* ***********************
- * Log statement to confirm server operation
+ * Log statement
  *************************/
 app.listen(port, () => {
   console.log(`App listening on http://${host}:${port}`);

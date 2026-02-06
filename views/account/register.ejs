@@ -39,22 +39,30 @@
     type="email"
     id="account_email"
     name="account_email"
+    placeholder="example@mail.com"
     value="<%= locals.account_email || '' %>"
-    placeholder="Enter your email"
     required
   >
 
   <label for="account_password">Password</label>
+
   <div class="password-rules">
-    Passwords must be at least 12 characters and contain at least
-    1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character.
+    Password must be at least 12 characters and include:
+    <ul>
+      <li>1 uppercase letter</li>
+      <li>1 lowercase letter</li>
+      <li>1 number</li>
+      <li>1 symbol</li>
+    </ul>
   </div>
+
   <input
     type="password"
     id="account_password"
     name="account_password"
     required
     pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"
+    title="At least 12 characters with uppercase, lowercase, number, and symbol."
   >
 
   <button type="submit">Register</button>

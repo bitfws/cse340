@@ -1,6 +1,16 @@
-<h1>Delete <%= vehicle.inv_make %> <%= vehicle.inv_model %>?</h1>
-<form method="post" action="/inv/delete">
+<h1>Delete <%= vehicle.inv_make %> <%= vehicle.inv_model %></h1>
+
+<form id="addInventoryForm" action="/inv/delete" method="post">
+  <p>
+    This action cannot be undone. Please confirm you want to permanently delete
+    this vehicle.
+  </p>
+
   <input type="hidden" name="inv_id" value="<%= vehicle.inv_id %>" />
+
   <button type="submit">Confirm Delete</button>
-  <a href="/inv">Cancel</a>
 </form>
+
+<p class="login-link">
+  <a href="/inv">Cancel and Return to Inventory</a>
+</p>

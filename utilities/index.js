@@ -137,16 +137,20 @@ Util.checkJWTToken = (req, res, next) => {
       process.env.ACCESS_TOKEN_SECRET,
       (err, accountData) => {
         if (err) {
-          req.flash('notice', 'Please log in');
+          res.locals.loggedin = false;
+          res.locals.accountData = null;
           res.clearCookie('jwt');
-          return res.redirect('/account/login');
+          return next();
         }
         res.locals.accountData = accountData;
-        res.locals.loggedin = 1;
+        res.locals.loggedin = true;
         next();
       },
     );
   } else {
+    // 🔑 ESTO ES LO QUE FALTABA
+    res.locals.loggedin = false;
+    res.locals.accountData = null;
     next();
   }
 };
@@ -161,6 +165,19 @@ Util.checkLogin = (req, res, next) => {
     req.flash('notice', 'Please log in.');
     return res.redirect('/account/login');
   }
+};
+
+Util.checkEmployeeOrAdmin = (req, res, next) => {
+  if (
+    res.locals.loggedin &&
+    (res.locals.accountData.account_type === 'Employee' ||
+      res.locals.accountData.account_type === 'Admin')
+  ) {
+    return next();
+  }
+
+  req.flash('notice', 'You must be logged in as an employee or admin.');
+  return res.redirect('/account/login');
 };
 
 module.exports = Util;

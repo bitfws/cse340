@@ -1,0 +1,27 @@
+<% if (messages && messages.notice) { %>
+  <div class="flash-message">
+    <%- messages() %>
+  </div>
+<% } %>
+
+<h1><%= title %></h1>
+
+<!-- Greeting: ONLY for Employee or Admin -->
+<% if (account.account_type === 'Employee' || account.account_type === 'Admin') { %>
+  <h2>Welcome <%= account.account_firstname %></h2>
+<% } %>
+
+<!-- Update account link: visible for ALL users -->
+<p>
+  <a href="/account/update/<%= account.account_id %>">
+    Update Account Information
+  </a>
+</p>
+
+<!-- Inventory Management: ONLY for Employee or Admin -->
+<% if (account.account_type === 'Employee' || account.account_type === 'Admin') { %>
+  <h3>Inventory Management</h3>
+  <p>
+    <a href="/inv/">Manage Inventory</a>
+  </p>
+<% } %>

@@ -5,7 +5,7 @@
 <% } %>
 
 <% if (errors) { %>
-  <ul class="notice">
+  <ul class="flash-message">
     <% errors.array().forEach(error => { %>
       <li><%= error.msg %></li>
     <% }) %>
@@ -14,22 +14,26 @@
 
 <h1><%= title || 'Add New Classification' %></h1>
 
-<form id="addClassificationForm" action="/inv/add-classification" method="post">
+<form
+  id="addClassificationForm"
+  action="/inv/add-classification"
+  method="post"
+>
 
   <label for="classification_name">Classification Name</label>
   <input
     type="text"
     id="classification_name"
     name="classification_name"
-    value="<%= locals.classification_name || '' %>"
     required
     pattern="^[A-Za-z0-9]+$"
     title="No spaces or special characters allowed."
+    value="<%= locals.classification_name || '' %>"
   >
 
   <button type="submit">Add Classification</button>
 </form>
 
-<p>
+<p class="login-link">
   <a href="/inv/">Back to Inventory Management</a>
 </p>

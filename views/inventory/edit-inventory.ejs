@@ -12,19 +12,19 @@
   </ul>
 <% } %>
 
-<h1><%= title || 'Add New Inventory Item' %></h1>
+<h1><%= title || 'Edit Inventory Item' %></h1>
 
 <form id="addInventoryForm" action="/inv/update" method="post">
 
   <label for="classification_id">Classification</label>
-  <%- classificationSelect %> <!-- sticky dynamic select -->
+  <%- classificationSelect %>
 
   <label for="inv_make">Make</label>
   <input
     type="text"
     id="inv_make"
     name="inv_make"
-    value="<%= locals.inv_make || '' %>"
+    value="<%= locals.inv_make || vehicle.inv_make %>"
     required
   >
 
@@ -33,7 +33,7 @@
     type="text"
     id="inv_model"
     name="inv_model"
-    value="<%= locals.inv_model || '' %>"
+    value="<%= locals.inv_model || vehicle.inv_model %>"
     required
   >
 
@@ -42,7 +42,7 @@
     type="number"
     id="inv_year"
     name="inv_year"
-    value="<%= locals.inv_year || '' %>"
+    value="<%= locals.inv_year || vehicle.inv_year %>"
     required
     min="1900"
     max="2100"
@@ -53,14 +53,14 @@
     id="inv_description"
     name="inv_description"
     required
-  ><%= locals.inv_description || '' %></textarea>
+  ><%= locals.inv_description || vehicle.inv_description %></textarea>
 
   <label for="inv_image">Image Path</label>
   <input
     type="text"
     id="inv_image"
     name="inv_image"
-    value="<%= locals.inv_image || '/images/no-image.png' %>"
+    value="<%= locals.inv_image || vehicle.inv_image %>"
     required
   >
 
@@ -69,7 +69,7 @@
     type="text"
     id="inv_thumbnail"
     name="inv_thumbnail"
-    value="<%= locals.inv_thumbnail || '/images/no-image-tn.png' %>"
+    value="<%= locals.inv_thumbnail || vehicle.inv_thumbnail %>"
     required
   >
 
@@ -78,7 +78,7 @@
     type="number"
     id="inv_price"
     name="inv_price"
-    value="<%= locals.inv_price || '' %>"
+    value="<%= locals.inv_price || vehicle.inv_price %>"
     required
     min="0"
     step="0.01"
@@ -89,7 +89,7 @@
     type="number"
     id="inv_miles"
     name="inv_miles"
-    value="<%= locals.inv_miles || '' %>"
+    value="<%= locals.inv_miles || vehicle.inv_miles %>"
     required
     min="0"
     step="1"
@@ -100,15 +100,19 @@
     type="text"
     id="inv_color"
     name="inv_color"
-    value="<%= locals.inv_color || '' %>"
+    value="<%= locals.inv_color || vehicle.inv_color %>"
     required
   >
 
-  <button type="submit" disabled>Update Vehicle</button>
-  <input type="hidden" name="inv_id"
-<% if(locals.inv_id) { %> value="<%= locals.inv_id %>" <% } %>>
+  <input
+    type="hidden"
+    name="inv_id"
+    value="<%= vehicle.inv_id %>"
+  >
+
+  <button type="submit">Update Vehicle</button>
 </form>
 
-<p>
+<p class="login-link">
   <a href="/inv/">Back to Inventory Management</a>
 </p>

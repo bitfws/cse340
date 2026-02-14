@@ -6,9 +6,17 @@
 
 <h1><%= title %></h1>
 
-<!-- Greeting: ONLY for Employee or Admin -->
+<!-- Greeting -->
 <% if (account.account_type === 'Employee' || account.account_type === 'Admin') { %>
-  <h2>Welcome <%= account.account_firstname %></h2>
+  <h2>Welcome <%= account.account_firstname %>!</h2>
+<% } else if (account.account_type === 'Client') { %>
+  <h2>Hello <%= account.account_firstname %>, thanks for being a valued client!</h2>
+<% } %>
+
+<% if (account.account_type === 'Client') { %>
+    <a href="/favorites">
+    Favorites
+  </a>
 <% } %>
 
 <!-- Update account link: visible for ALL users -->

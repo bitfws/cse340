@@ -57,7 +57,7 @@ async function getAccountByEmail(account_email) {
              account_firstname,
              account_lastname,
              account_email,
-             account_type,
+             INITCAP(account_type::text) AS account_type,
              account_password
       FROM account
       WHERE account_email = $1`;
@@ -79,7 +79,7 @@ async function getAccountById(account_id) {
              account_firstname,
              account_lastname,
              account_email,
-             account_type
+             INITCAP(account_type::text) AS account_type
       FROM account
       WHERE account_id = $1`;
     const result = await pool.query(sql, [account_id]);
@@ -110,7 +110,7 @@ async function updateAccount(
                 account_firstname,
                 account_lastname,
                 account_email,
-                account_type`;
+                INITCAP(account_type::text) AS account_type`;
     const result = await pool.query(sql, [
       account_firstname,
       account_lastname,

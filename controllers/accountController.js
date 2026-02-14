@@ -115,6 +115,11 @@ async function accountLogin(req, res) {
     return res.redirect('/account/login');
   }
 
+  // 🔑 Normalizar account_type a mayúscula inicial para evitar errores
+  accountData.account_type =
+    accountData.account_type.charAt(0).toUpperCase() +
+    accountData.account_type.slice(1).toLowerCase();
+
   delete accountData.account_password;
 
   const accessToken = jwt.sign(accountData, process.env.ACCESS_TOKEN_SECRET, {

@@ -18,6 +18,7 @@ const utilities = require('./utilities');
 const session = require('express-session');
 const pool = require('./database');
 const cookieParser = require('cookie-parser');
+const favoritesRoute = require('./routes/favoritesRoute');
 
 app.use(cookieParser());
 
@@ -40,12 +41,11 @@ app.use(
 );
 
 /* ***********************
- * JWT + Globals Middleware  ✅ FIX CLAVE
+ * JWT + Globals Middleware
  *************************/
 app.use(utilities.checkJWTToken);
 
 app.use((req, res, next) => {
-  // Garantiza que SIEMPRE existan para EJS
   res.locals.loggedin = res.locals.loggedin || 0;
   res.locals.accountData = res.locals.accountData || null;
   next();
@@ -79,6 +79,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(staticRoute);
 app.use('/inv', inventoryRoute);
 app.use('/account', accountRoute);
+app.use('/favorites', favoritesRoute);
 
 // Index route
 app.get('/', utilities.handleErrors(baseController.buildHome));

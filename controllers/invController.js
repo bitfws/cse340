@@ -52,13 +52,23 @@ invCont.buildByInventoryId = async function (req, res, next) {
     return next(err);
   }
 
+  // Asegurar que account_type tenga la primera letra en mayúscula
+  if (res.locals.accountData && res.locals.accountData.account_type) {
+    res.locals.accountData.account_type =
+      res.locals.accountData.account_type.charAt(0).toUpperCase() +
+      res.locals.accountData.account_type.slice(1).toLowerCase();
+  }
+
   const vehicleHTML = await utilities.buildVehicleDetail(data[0]);
   const nav = await utilities.getNav();
 
-  res.render('./inventory/detail', {
+  res.render('inventory/detail', {
     title: `${data[0].inv_make} ${data[0].inv_model}`,
     nav,
+    vehicle: data[0],
     vehicleHTML,
+    loggedin: res.locals.loggedin,
+    accountData: res.locals.accountData,
   });
 };
 

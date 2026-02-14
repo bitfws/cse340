@@ -21,6 +21,7 @@ async function getInventoryByClassificationId(classification_id) {
        WHERE i.classification_id = $1`,
       [classification_id],
     );
+
     return data.rows;
   } catch (error) {
     console.error('getInventoryByClassificationId error ' + error);
@@ -136,17 +137,20 @@ async function updateInventory(
     ]);
     return data.rows[0];
   } catch (error) {
-    console.error('model error: ' + error);
+    console.error('updateInventory error: ' + error);
   }
 }
 
-async function deleteInventoryById(inv_id) {
+/* ***************************
+ *  Delete inventory item by ID
+ * ************************** */
+async function deleteInventoryItem(inv_id) {
   try {
-    const sql = 'DELETE FROM inventory WHERE inv_id = $1';
+    const sql = 'DELETE FROM inventory WHERE inv_id = $1 RETURNING *';
     const result = await pool.query(sql, [inv_id]);
     return result.rowCount > 0; // true if deleted
   } catch (error) {
-    console.error('deleteInventoryById error: ' + error);
+    console.error('deleteInventoryItem error: ' + error);
     return false;
   }
 }
@@ -158,5 +162,5 @@ module.exports = {
   addInventoryItem,
   addClassification,
   updateInventory,
-  deleteInventoryById,
+  deleteInventoryItem,
 };

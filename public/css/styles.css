@@ -511,6 +511,7 @@ input:required:valid {
   transition: ease-in-out 300ms;
 }
 
+.btn,
 #addClassificationForm button {
   margin-top: 1.5rem;
   padding: 0.7rem;
